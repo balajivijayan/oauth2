@@ -1,0 +1,67 @@
+keytool -genkey -alias tomcat -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore.p12 -validity 3650
+
+
+APP Name: Client - Implicit
+APP ID: 204563120318102
+APP SECRET: 54d237bb119a5e05e49bebc8c0c90a5d
+
+
+Authorization Code Grant:
+
+	Authorize URL:
+	http://localhost:8000/uaa/oauth/authorize?response_type=code&client_id=photo-print&redirect_uri=http://example.com
+
+	http://example.com/?code=WC0mJ7
+
+	Acess Token URL:
+	curl photo-print:12345@localhost:8000/uaa/oauth/token -d client_id=photo-print -d grant_type=authorization_code -d code=WC0mJ7 -d redirect_uri=http://example.com
+
+	{"access_token":"88de75f8-cdb7-411f-93e2-f52919c89fb9","token_type":"bearer","expires_in":43199,"scope":"photos"}
+
+	Hit Resource Server:
+
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer 88de75f8-cdb7-411f-93e2-f52919c89fb9"
+
+
+Implicit Grant:
+	
+	Authorize URL:
+	http://localhost:8000/uaa/oauth/authorize?response_type=token&client_id=implicit-client&redirect_uri=https://example.com
+
+	Response -> access_token=485ddebe-82f9-4eb1-a7d5-f51e89b0a6e5&token_type=bearer&expires_in=43199&scope=photos
+
+	Hit Resource Server:
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer 485ddebe-82f9-4eb1-a7d5-f51e89b0a6e5"
+
+Client Credentials Grant:
+
+	Access Token URL:
+	curl credentials-client:7890@localhost:8000/uaa/oauth/token -d client_id=credentials-client -d grant_type=client_credentials
+
+	Response : 
+	{"access_token":"a1ba12ad-21d9-40e4-b14e-f035eaea5fa7","token_type":"bearer","expires_in":43199,"scope":"photos"}
+
+	
+	Resource Server:
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer a1ba12ad-21d9-40e4-b14e-f035eaea5fa7"
+
+
+Password Grant:
+	
+	Access Token URL:
+	curl password-client:password@localhost:8000/uaa/oauth/token -d grant_type=password -d username=shinchan -d password=123
+
+
+	Response:
+	{"access_token":"14b2de48-2702-4022-8e39-b1374019d38e","token_type":"bearer","expires_in":43199,"scope":"photos"}
+
+	Resource Server:
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer 14b2de48-2702-4022-8e39-b1374019d38e"
+
+#######################
+
+keytool -genkey -alias tomcat1 -storetype PKCS12 -keyalg RSA -keysize 2048 -keystore keystore1.p12 -validity 3650
+pwd-changeit
+
+	https://localhost:8443/uaa/oauth/authorize?response_type=token&client_id=implicit-client&redirect_uri=https://example.com
+
