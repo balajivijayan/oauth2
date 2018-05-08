@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Built-By: balajivijayan
-Build-Jdk: 9
-Implementation-Title: resource-server
-Implementation-Version: 0.0.1-SNAPSHOT
-Implementation-Vendor-Id: me.balaji.oauth.resource
-Implementation-Vendor: Pivotal Software, Inc.
-Created-By: Maven Integration for Eclipse
-
