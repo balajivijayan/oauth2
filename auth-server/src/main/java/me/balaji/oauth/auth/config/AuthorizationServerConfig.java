@@ -18,11 +18,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("photo-print").secret("12345").authorizedGrantTypes("authorization_code")
+		clients.inMemory().withClient("auth-client").secret("authsecret").authorizedGrantTypes("authorization_code")
 				.scopes("photos").and().withClient("resource-server").secret("resource-password").and()
-				.withClient("implicit-client").scopes("photos").authorizedGrantTypes("implicit").and()
-				.withClient("credentials-client").secret("7890").scopes("photos").authorizedGrantTypes("client_credentials").and()
-				.withClient("password-client").secret("password").scopes("photos").authorizedGrantTypes("password");
+				.withClient("implicit-client").scopes("photos").authorizedGrantTypes("implicit")
+				.accessTokenValiditySeconds(40).redirectUris("http://example.com").and()
+				.withClient("credentials-client").secret("credsecret").scopes("photos")
+				.authorizedGrantTypes("client_credentials").and().withClient("password-client").secret("pwdsecret")
+				.scopes("photos").authorizedGrantTypes("password");
 	}
 
 
