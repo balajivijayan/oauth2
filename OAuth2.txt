@@ -9,18 +9,18 @@ APP SECRET: 54d237bb119a5e05e49bebc8c0c90a5d
 Authorization Code Grant:
 
 	Authorize URL:
-	http://localhost:8000/uaa/oauth/authorize?response_type=code&client_id=photo-print&redirect_uri=http://example.com
+	http://localhost:8000/uaa/oauth/authorize?response_type=code&client_id=auth-client&redirect_uri=http://example.com
 
-	http://example.com/?code=WC0mJ7
+	http://example.com/?code=jPAidn
 
 	Acess Token URL:
-	curl photo-print:12345@localhost:8000/uaa/oauth/token -d client_id=photo-print -d grant_type=authorization_code -d code=WC0mJ7 -d redirect_uri=http://example.com
+	curl auth-client:authsecret@localhost:8000/uaa/oauth/token -d client_id=auth-client -d grant_type=authorization_code -d code=jPAidn -d redirect_uri=http://example.com
 
-	{"access_token":"88de75f8-cdb7-411f-93e2-f52919c89fb9","token_type":"bearer","expires_in":43199,"scope":"photos"}
+	{"access_token":"7bb33b74-8d78-4934-8397-ada8bf9b202e","token_type":"bearer","expires_in":43199,"scope":"photos"}
 
 	Hit Resource Server:
 
-	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer 88de75f8-cdb7-411f-93e2-f52919c89fb9"
+	curl http://localhost:9000/api/photo -H "authorization: Bearer 7bb33b74-8d78-4934-8397-ada8bf9b202e"
 
 
 Implicit Grant:
@@ -36,27 +36,27 @@ Implicit Grant:
 Client Credentials Grant:
 
 	Access Token URL:
-	curl credentials-client:7890@localhost:8000/uaa/oauth/token -d client_id=credentials-client -d grant_type=client_credentials
+	curl credentials-client:credsecret@localhost:8000/uaa/oauth/token -d client_id=credentials-client -d grant_type=client_credentials
 
 	Response : 
-	{"access_token":"a1ba12ad-21d9-40e4-b14e-f035eaea5fa7","token_type":"bearer","expires_in":43199,"scope":"photos"}
+	{"access_token":"a14d673b-94f3-45f0-9941-00e3df146474","token_type":"bearer","expires_in":43199,"scope":"photos"}
 
 	
 	Resource Server:
-	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer a1ba12ad-21d9-40e4-b14e-f035eaea5fa7"
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer a14d673b-94f3-45f0-9941-00e3df146474"
 
 
 Password Grant:
 	
 	Access Token URL:
-	curl password-client:password@localhost:8000/uaa/oauth/token -d grant_type=password -d username=shinchan -d password=123
+	curl password-client:pwdsecret@localhost:8000/uaa/oauth/token -d grant_type=password -d username=shinchan -d password=123
 
 
 	Response:
-	{"access_token":"14b2de48-2702-4022-8e39-b1374019d38e","token_type":"bearer","expires_in":43199,"scope":"photos"}
+	{"access_token":"d8518d5f-48d8-459b-b946-af2af17414e9","token_type":"bearer","expires_in":43199,"scope":"photos"}
 
 	Resource Server:
-	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer 14b2de48-2702-4022-8e39-b1374019d38e"
+	curl -X GET http://localhost:9000/api/photo -H "authorization: Bearer d8518d5f-48d8-459b-b946-af2af17414e9"
 
 #######################
 
